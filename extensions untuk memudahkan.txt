@@ -1,3 +1,0 @@
-- liveserver
-- prettier
-- bracket pair colorizer

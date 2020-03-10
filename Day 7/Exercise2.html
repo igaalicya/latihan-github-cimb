@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+let arrCity = ['Jakarta', 'BSD', 'Bandung', 'Jogja']
+
+function deleteCity(input){
+    for(let i = 0; i<arrCity.length; i++){
+        if (arrCity[i].toLocaleLowerCase() == input.toLocaleLowerCase()){
+            arrCity.splice(i, 1)
+        }
+    }
+}
+
+let input = prompt(arrCity)
+deleteCity(input)
+alert(arrCity)
+
+// function isCity(input){
+//     for(let i = 0; i<arrCity.length; i++){
+//         if (arrCity[i].toLocaleLowerCase() == input.toLocaleLowerCase()){
+//             return true
+//         } 
+//     }
+//     return false
+// }
+
+// let input = prompt(arrCity)
+// alert(isCity(input))
+
+</script>
+</body>
+</html>

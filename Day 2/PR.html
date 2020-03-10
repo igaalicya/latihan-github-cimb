@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+let mangga = 1000
+let anggur = 2000
+let apel = 3000
+let leci = 4000
+
+let stokMangga = 20
+let stokAnggur = 20
+let stokApel = 20
+let stokleci = 20
+
+let stok = "Stok Mangga " + stokMangga + " harga Rp " + mangga + "\n" + "Stok Anggur " + stokAnggur + " harga Rp " + anggur + "\n" + "Stok Apel " + stokApel + " harga Rp " + apel + "\n" + "Stok Leci " + stokleci + " harga Rp " + leci + "\n"
+alert(stok)
+
+let input1 = parseInt(prompt('masukkan jumlah Mangga'))
+let input2 = parseInt(prompt('masukkan jumlah Anggur'))
+let input3 = parseInt(prompt('masukkan jumlah Apel'))
+let input4 = parseInt(prompt('masukkan jumlah Leci'))
+
+//check stok dan itung harga
+if ((input1 > stokMangga) || (input2 > stokAnggur) || (input3 > stokApel) || (input4 > stokleci)) {
+    alert("stock buah tidak mencukupi")
+}
+else {
+let harga = ((input1 * mangga) + (input2 * anggur) + (input3 * apel) + (input4 * leci))
+alert("Total harga buah yang anda beli adalah Rp " + harga)
+
+//itung uang
+let uang = parseInt(prompt('masukkan jumlah uang yang anda bayarkan'))
+let kembalian = uang - harga
+if (uang == harga){
+    alert("terimakasih sudah membayar dengan uang pas")
+} else if (uang <= harga){
+    alert("Maaf uang anda tidak mencukupi, uang anda kurang Rp" + Math.abs(kembalian)) 
+} else{
+    alert("kembalian anda adalah Rp " + kembalian)
+}
+}
+
+</script>
+</body>
+</html> 

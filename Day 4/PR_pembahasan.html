@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    
+let arrItemNames = ['Jeruk', 'Mangga', 'Apel']
+let arrPrice = [10000, 7000, 13000]
+let arrStock = [10, 15, 5]
+let arrInput = [0, 0, 0]
+
+let menu = ''
+let pilihan = '' 
+let isRepeat = true
+let input1, input2, input3
+let harga = 0
+var uang, kembalian
+
+    do{
+        menu = ''
+        pilihan =''
+        for (let i=0; i< arrItemNames.length; i++) {
+        menu += `(${i+1}) Harga ${arrItemNames[i]} Rp. ${arrPrice[i]}/pcs (stok ${arrStock[i]} buah)\n`
+        }
+
+        menu += `(${arrItemNames.length + 1}) Checkout`
+        //alert(menu)
+        let pilih = prompt(menu)
+        let pilihIndex = pilih - 1
+
+        if(pilih == arrItemNames.length + 1){
+            harga = 0
+            for(i=0; i< arrItemNames.length; i++){
+                harga += arrInput[i] * arrPrice[i]
+            }
+            
+            do{
+                alert("Total harga buah yang anda beli adalah Rp " + harga)
+                uang = parseInt(prompt('masukkan ulang jumlah uang yang anda bayarkan')) 
+                
+                if (uang == harga){
+                    alert("terimakasih sudah membayar dengan uang pas")
+                    isRepeat = false
+                } else if (uang <= harga){
+                    alert(`Maaf uang anda tidak mencukupi, uang anda kurang Rp ${harga - uang}`) 
+                    isRepeat = true
+                } else{
+                    alert(`kembalian anda adalah Rp ${uang - harga}`)
+                    isRepeat = false
+                }
+                isRepeat = false
+            } while (isRepeat)  
+
+            for(let i = 0; i < arrInput.length; i++){
+                arrStock[i] -= arrInput[i]
+                arrInput[i] = 0 
+            }
+            isRepeat = confirm('Belanja lagi?')
+        } else {
+            do{
+                inputUserQty = parseInt(prompt(`masukkan jumlah ${arrItemNames[pilihIndex]}`))
+                if (arrStock[pilihIndex] >= (inputUserQty + arrInput[pilihIndex])) {
+                arrInput[pilihIndex] += inputUserQty
+                isRepeat = false
+                } else {
+                alert(`Stock ${arrItemNames[pilihIndex]} tidak cukup`)
+                isRepeat = true
+                }
+            } while(isRepeat)
+        }
+
+    } while(isRepeat)
+
+
+</script>
+</body>
+</html>

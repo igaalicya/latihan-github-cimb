@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+
+arrReverse = ['']
+
+function reverseWord(inputan){
+    var splitString = inputan.split("")
+    var reverseArray = splitString.reverse()
+    return reverseArray.join(""); 
+}
+
+let input = prompt("masukkan kata yang akan di reverse")
+alert(reverseWord(input))
+
+</script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+let arrItems = [
+    {
+        nama : 'Jeruk',
+        harga : 10000,
+        stok : 10,
+        qty : 0
+    },
+    {
+        nama : 'Mangga',
+        harga : 7000,
+        stok : 10,
+        qty : 0
+    },
+    {
+        nama : 'Apel',
+        harga : 13000,
+        stok : 10,
+        qty : 0
+    }
+]
+
+let arrMainMenu = ['Admin', 'Customer', 'Exit']
+
+let inputUserMenu;
+let inputIndex;
+let inputUserQty;
+let isRepeat;
+let totalPrice;
+let userPayment;
+let cartCount;
+
+let menu = ''
+let cart = ''
+let choice
+
+function mainMenuu(){
+    mainMenu = ``
+    for (let i = 0; i < arrMainMenu.length; i++) {
+            mainMenu += `${i+1}. ${arrMainMenu[i]}\n`
+        }
+    choice = prompt(mainMenu)
+}
+
+function showMenu(){
+    menu = ''
+
+    for (let i = 0; i < arrItems.length; i++) {
+      menu += `(${i + 1}) Harga ${arrItems[i].nama} Rp ${arrItems[i].harga}/pcs (stock ${arrItems[i].stok} buah)\n`
+    }
+
+    menu += `(${arrItems.length + 1}) Cart\n(${arrItems.length + 2}) Checkout\n`
+
+}
+
+function showCart(cart){
+    cart = ''
+    cartCount = 0;
+    for (let i = 0; i < arrItems.length; i++) {
+    if (arrItems[i].qty > 0) {
+        cart += `${arrItems[i].nama} ${arrItems[i].qty} items in cart\n`;
+        cartCount = 1;
+    }
+
+    if (cartCount == 0 && i == arrItems.length - 1) {
+        alert("Cart anda kosong");
+    }
+    }
+
+    if (cart) {
+    alert(cart);
+    }
+    // return alert(cart)
+}
+
+function countPrice(){
+    totalPrice = 0
+    for (let i = 0; i < arrItems.length; i++) {
+        totalPrice += arrItems[i].harga * arrItems[i].qty
+      }
+    return totalPrice
+}
+
+function payment(){
+    let total = countPrice()
+    alert(`Total belanjaan anda sebesar IDR ${totalPrice}`)
+        userPayment = prompt(`Masukkan jumlah uang anda`)
+  
+        if (userPayment > totalPrice) {
+          alert(`Kembalian anda IDR ${userPayment - totalPrice}`)
+          isRepeat = false
+        } else if (userPayment < totalPrice) {
+          alert(`Uang anda kurang IDR ${totalPrice - userPayment}`)
+          isRepeat = true
+        } else if (userPayment == totalPrice) {
+          alert('Terima kasih sudah membayar dengan uang pas')
+          isRepeat = false
+        }
+}
+
+function addToCart(){
+    inputIndex = inputUserMenu - 1
+    inputUserQty = parseInt(prompt(`Mau beli berapa ${arrItems[inputIndex].nama}?`))
+    
+    if (arrItems[inputIndex].stok >= (inputUserQty + arrItems[inputIndex].qty)) {
+    arrItems[inputIndex].qty += inputUserQty
+    isRepeat = false
+    } else {
+    alert(`Stock ${arrItems[inputIndex].nama} tidak cukup`)
+    // isRepeat = true
+    }
+}
+
+function addNewItem(){
+    arrItems.push({nama:prompt("masukkan nama buah"), harga:prompt("masukkan harga buah"), stok:prompt("masukkan stok"), qty:0})
+    alert("masukan berhasil")
+}
+
+do{
+    mainMenuu()
+    if (choice == 3){
+        break
+    }
+    if (choice == 1){
+        adminMenu = `
+        1. Tambah Buah
+        2. Exit`
+        choiceAdmin = prompt(adminMenu)
+        if (choiceAdmin == 1){
+            addNewItem()
+            isRepeat = true
+        }
+        if (choiceAdmin == 2){
+            mainMenuu()
+        }
+
+    }
+    if (choice == 2){           // menu customer
+        showMenu()
+
+        inputUserMenu = prompt(menu)
+        inputUserMenuIndex = inputUserMenu - 1
+    
+        if (inputUserMenu == arrItems.length + 1){
+            showCart()        
+        } else if (inputUserMenu == arrItems.length + 2) {
+            
+            countPrice()
+        do {
+            payment()
+        } while(isRepeat)
+
+        for (let i = 0; i < arrItems.length; i++) {
+        arrItems[i].stok -= arrItems[i].qty
+        arrItems[i].qty = 0
+      }
+        isRepeat = confirm('Apakah anda ingin belanja lagi?')
+
+        } else {
+        do {
+            addToCart()
+    
+        } while(isRepeat)
+        isRepeat = true
+        }
+        // mainMenuu() 
+    }
+    
+} while(isRepeat)
+</script>
+</html>

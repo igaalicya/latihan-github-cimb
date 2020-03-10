@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        table, tr, td, th {
+            border: 2px solid blueviolet;
+            border-collapse : collapse;
+        }
+    </style>
+    <table id="1">
+        <tr>
+            <th>No.</th>
+            <th>Nama</th>
+            <th>Harga</th>
+        </tr>
+    </table>
+
+    
+</body>
+
+<script>
+  let arrItemNames = ['Jeruk', 'Mangga', 'Apel']
+  let arrPrice = [10000, 7000, 13000]
+  let arrStock = [10, 10, 10]
+  let arrInputs = [0, 0, 0]
+
+//   menu = ''
+
+//   for (let i = 0; i < arrItemNames.length; i++) {
+//         menu += `${i + 1}. <strong>${arrItemNames[i]}</strong> IDR <i>${arrPrice[i]}/pcs</i> (${arrStock[i]} items in stock)<br>`
+//   }
+
+//   menu += `${arrItemNames.length + 1}. Checkout`
+
+//   document.getElementById("1").innerHTML += `${menu}`
+
+menu = ''
+
+  for (let i = 0; i < arrItemNames.length; i++) {
+    document.getElementById("1").innerHTML += `
+    <tr>
+        <td>${i + 1}.</td>
+        <td>${arrItemNames[i]}</td>
+        <td>${arrPrice[i]}</td>
+    </tr>`     
+  }
+
+  
+
+
+
+</script>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+let arrCity = ['Jakarta', 'BSD', 'Bandung', 'Jogja']
+
+function repIndexOf(input){
+    for(let i = 0; i<arrCity.length; i++){
+        if (arrCity[i].toLocaleLowerCase() == input.toLocaleLowerCase()){
+            return i
+        } 
+    }
+    return -1
+}
+
+let input = prompt(arrCity)
+alert(repIndexOf(input))
+</script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+let mangga = 1000
+let anggur = 2000
+let apel = 3000
+let leci = 4000
+
+let stokMangga = 20
+let stokAnggur = 20
+let stokApel = 20
+let stokleci = 20
+
+let input1, input2, input3, input4
+let kondisi = true
+let beliUlang 
+
+do{
+    alert(`
+    Harga Mangga Rp. ${mangga}/pcs (stok ${stokMangga} buah)
+    Harga Anggur Rp. ${anggur}/pcs (stok ${stokAnggur} buah)
+    Harga Apel Rp. ${apel}/pcs (stok ${stokApel} buah)
+    Harga Leci Rp. ${leci}/pcs (stok ${stokleci} buah)`
+    )
+    
+    do{
+        input1 = parseInt(prompt('masukkan jumlah Mangga'))
+        if (input1 > stokMangga && input1 >= 0){
+            alert("stock buah tidak mencukupi")   
+            kondisi = true 
+        } else{
+            kondisi = false
+            stokMangga = stokMangga - input1
+        }
+    } while (kondisi)
+
+    do{
+        input2 = parseInt(prompt('masukkan jumlah Anggur'))
+        if (input2 > stokAnggur && input2 >= 0){
+            alert("stock buah tidak mencukupi")   
+            kondisi = true 
+        } else{
+            kondisi = false
+            stokAnggur = stokAnggur - input2
+        }
+    } while (kondisi)
+
+    do{
+        input3 = parseInt(prompt('masukkan jumlah Apel'))
+        if (input3 > stokApel && input3 >= 0){
+            alert("stock buah tidak mencukupi")   
+            kondisi = true 
+        } else{
+            kondisi = false
+            stokApel = stokApel - input3
+        }
+    } while (kondisi)
+
+    do{
+        input4 = parseInt(prompt('masukkan jumlah Leci'))
+        if (input4 > stokleci && input4 >= 0){
+            alert("stock buah tidak mencukupi")   
+            kondisi = true 
+        } else{
+            kondisi = false
+            stokleci = stokleci - input4
+        }
+    } while (kondisi)
+
+    let harga = ((input1 * mangga) + (input2 * anggur) + (input3 * apel) + (input4 * leci))
+    alert("Total harga buah yang anda beli adalah Rp " + harga)
+
+    //itung uang
+    // uang = parseInt(prompt('masukkan ulang jumlah uang yang anda bayarkan')) 
+    // var kembalian = uang - harga
+
+    // while(uang < harga) {
+    //     alert("Maaf uang anda tidak mencukupi, uang anda kurang Rp" + Math.abs(kembalian))
+    //     uang = parseInt(prompt('masukkan ulang jumlah uang yang anda bayarkan')) 
+    //     kembalian = uang - harga
+    // }
+    // if (uang == harga){
+    //     alert("terimakasih sudah membayar dengan uang pas")
+        
+    // } else if (uang > harga){
+    //     alert("kembalian anda adalah Rp " + kembalian)
+    // } 
+
+    do{
+        uang = parseInt(prompt('masukkan ulang jumlah uang yang anda bayarkan')) 
+        var kembalian = uang - harga
+
+        if (uang == harga){
+            alert("terimakasih sudah membayar dengan uang pas")
+            kondisi = false
+        } else if (uang <= harga){
+            alert("Maaf uang anda tidak mencukupi, uang anda kurang Rp" + Math.abs(kembalian)) 
+            kondisi = true
+        } else{
+            alert("kembalian anda adalah Rp " + kembalian)
+            kondisi = false
+        }
+    } while (kondisi)
+
+
+    beliUlang = confirm("Apakah anda ingin belanja lagi?") 
+} while(beliUlang)
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!-- function masukan jam
+2 jam pertama 2000 - 500 perjam
+hitung total uang parkir -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+function uangParkir(jam){
+    if(jam <= 2){
+        jumlah = jam * 2000
+    } else{
+        jumlah = 2 * 2000 + (jam - 2) * 500
+    }
+    return jumlah
+}
+
+jam = prompt("masukkan lama parkir")
+alert(uangParkir(jam))
+
+
+// let result = 0
+// while (jam > 0){
+//     if (jam <= 2){
+//         result += 2000
+//     } else{
+//         result +=500
+//     }
+//     hour--
+// }
+// return result
+
+</script>
+</body>
+</html>

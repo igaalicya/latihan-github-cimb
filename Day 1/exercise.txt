@@ -1,0 +1,7 @@
+let sandwich = 8
+let salad = 7
+let burger = 10
+let frechFries = 5
+
+let jumlah = "$" + ((4 * sandwich) + (5 * salad) + (2 * burger) + (7 * frechFries))
+console.log(jumlah)

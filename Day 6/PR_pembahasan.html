@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    let arrItems = [
+      {
+        produk: "Jeruk",
+        harga: 10000,
+        stock: 10,
+        qty: 0
+      },
+      {
+        produk: "Mangga",
+        harga: 15000,
+        stock: 10,
+        qty: 0
+      },
+      {
+        produk: "Apel",
+        harga: 5000,
+        stock: 10,
+        qty: 0
+      }
+    ];
+
+    let inputUserMenu;
+    let inputUserMenuIndex;
+    let inputUserQty;
+    let isRepeat;
+    let totalPrice;
+    let userPayment;
+    let cartCount;
+    let userCart = "";
+
+    let menu = "";
+    
+    let newItem
+    let newItemName
+    let newItemPrice
+    let newItemStock
+
+    function userMenu(){
+      menu = "";
+
+      for (let i = 0; i < arrItems.length; i++) {
+        menu += `${i + 1}. ${arrItems[i].produk} IDR ${
+          arrItems[i].harga
+        }/pcs (${arrItems[i].stock} items ready)\n`;
+      }
+
+      menu += `${arrItems.length + 1}. Cart\n`;
+      menu += `${arrItems.length + 2}. Checkout\n`;
+
+      return menu                                       // return berfungsi sebagai break, sehungga statement di bawahnya gak kebaca
+
+    }
+
+    function showCart(){
+      userCart = "";
+      for (let i = 0; i < arrItems.length; i++) {
+        if (arrItems[i].qty > 0) {
+          userCart += `${arrItems[i].produk} ${arrItems[i].qty} items in cart\n`;
+        }
+      }
+
+      if (userCart) {
+        alert(userCart);
+      } else{
+        alert("Cart anda kosong")
+      }
+    }
+
+    function calculateTotal(){
+      totalPrice = 0
+      for (let i = 0; i < arrItems.length; i++) {
+        totalPrice += arrItems[i].qty * arrItems[i].harga
+      }
+
+      userPayment = prompt(`Total harga = ${totalPrice}`)
+
+      if (userPayment > totalPrice) {
+        alert(`Kembalian anda ${userPayment - totalPrice}`)
+      } else if (userPayment < totalPrice) {
+        alert(`Uang anda kurang ${totalPrice - userPayment}`)
+      } else if (userPayment == totalPrice) {
+        alert('Terima kasih sudah membayar dengan uang pas')
+      }
+    }
+
+    function addToCart(index){
+      inputUserQty = parseInt(prompt(`Mau beli berapa ${arrItems[index].produk}`))
+
+      if (arrItems[index].stock >= (inputUserQty + arrItems[index].qty)) {
+        arrItems[index].qty += inputUserQty
+      } else {
+        alert(`Stock ${arrItems[index].produk} tidak mencukupi`)
+      }
+    }
+
+    function createNewItem(produk, harga, stock){
+      return{
+        produk,
+        harga,
+        stock,
+        qty: 0
+      }
+
+      // newItem = {
+      //   produk,
+      //   harga,
+      //   stock,
+      //   qty: 0
+      // }
+    }
+    do{
+    let inputMainMenu = prompt('Login sebagai\n1. Admin\n2. User')
+    if (inputAdminMenu == 1){
+      do{
+        inputAdminMenu = prompt(`1. Add Item\n2. Delete Item\n3. Show Menu\n4. Logout`)
+
+        if (inputAdminMenu == 1){
+          newItemName = prompt('Masukkan nama item')
+          newItemPrice = parseInt(prompt('Masukkan harga item'))
+          newItemStock = parseInt(prompt('Masukkan jumlah item'))
+
+          arrItems.push(createNewItem(newItemName, newItemPrice, newItemStock))
+
+          // arrItems.push(newItem)
+        } else if (inputAdminMenu == 2){
+
+        } else if (inputAdminMenu == 3){
+          alert(userMenu())
+        } else if (inputAdminMenu == 4){
+          break
+        }
+
+      } while(isRepeat)
+
+    } else if (inputUserMenu == 2){
+      do {
+        inputUserMenu = prompt(userMenu());           // user menu nge return string yang isinya menu
+        inputUserMenuIndex = inputUserMenu - 1
+        
+        if (inputUserMenu == arrItems.length + 1) {
+          showCart()
+        } else if (inputUserMenu == arrItems.length + 2) {
+          calculateTotal()
+        } else if (inputUserMenu < arrItems.length + 1) {
+          addToCart(inputUserMenuIndex)
+        }
+
+        isRepeat = confirm('Belanja lagi ga?')
+
+      } while (isRepeat);
+    }
+  }while(isRepeat)
+
+  </script>
+</html>

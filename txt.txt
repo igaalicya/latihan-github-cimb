@@ -40,7 +40,16 @@ spek tugas
 
 - split, sort, join
 
-
+challenge minggu ke -1 maret
+Kapreka's constant
+output = angka dan banyak iterasi, kalo angka dan input bener gak mungkin lebih dari 7
 
 BUAT UJIAN
 - ada timer buat belanja, kalau 30 detik otomatis exit
+
+UJIAN
+- Field Set
+- 3 soal = 5 jam
+- soal 1 = bobot 10 = prompt alert
+- soal 2 = bobot 30 = method yang digunakan harus sesuai, kalo menggunakan method yang dilarang bobot jadi 10
+- soal 3 = bobot 60 = lanjutin program

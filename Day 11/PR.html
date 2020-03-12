@@ -1,0 +1,218 @@
+<!-- 1.  add new field = jenis kelamin = radio button 
+2.  biodata = text area = gak boleh lebih dari 30 character, kalau lebih dari 30 (ma...) = pake slice
+3.  pas ngetik biodata tampilin word count di bawah = 0/30 = pake method -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<style>
+    table, tr, td, th {
+        border: 1px solid blueviolet;
+        border-collapse : collapse;
+        text-align: center;
+    }
+</style>
+<center>
+<table id="myTable">
+    <thead>
+    <tr>
+        <th onclick="sortName()">Nama</th>
+        <th onclick="sortJob()">Pekerjaan</th>
+        <th onclick="sortAge()">Umur</th>
+        <th>Jenis Kelamin</th>
+        <th>Biodata</th>
+        <th>Picture</th>
+    </tr>
+    </thead>
+    <tbody id='mainData'>
+
+    </tbody>
+    <tfoot>
+    <tr id="rowData">
+        <td><input type="text" id="inputName" placeholder="Input Nama" required></td>
+        <td><input type="text" id="inputJob" placeholder="Input Pekerjaan" required></td>
+        <td><input type="number" id="inputAge" placeholder="Input Umur" required></td>
+        <td>
+        <!-- dalam pembuatan radio button name nya harus sama -->
+            <input type="radio" id="inputMale" name="gender" value="Laki-laki">
+            <label for="male">Laki-laki</label><br>
+            <input type="radio" id="inputFemale" name="gender" value="Perempuan">
+            <label for="female">Perempuan</label><br>
+        </td>
+        <td><textarea id="inputBiodata" name="biodata" onkeyup="countBio()"></textarea><br>
+            <span id="counter">0/30</span>
+        </td>
+        <td><input type="text" id="inputPict" placeholder="Input Picture Link" required></td>
+        <td><input type="button" id="submitButton" value="Submit" onclick="addData()"></td>
+    </tr>
+    </tfoot>
+</table>
+</center>
+</body>
+<script>
+class Person {
+    constructor(name, job, age, gender, biodata, pict){
+        this.name = name
+        this.job = job
+        this.age = age
+        this.pict = pict
+        this.gender = gender    
+        this.biodata = biodata 
+    }
+}
+
+let personData = [
+    new Person('Mickey','Doctor',20, "Laki-laki", "i'm a tiny mouse", 'https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/8_avatar-512.png'),
+    new Person('Minnie','House Wife',18,"Perempuan", "i'm the wife of tiny mouse", 'https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/4_avatar-512.png'),
+    new Person('Donald','Farmer',18, "Laki-laki","i'm tiny mouse's Friend", 'https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/5_avatar-256.png')
+]
+
+const showData = () => {
+    let result = ''
+    personData.forEach(({name, job, age, gender, biodata, pict}, index) => {
+    if(biodata.length > 30){
+        biodata = biodata.slice(0,30).concat('...')
+    }
+    result += `
+        <tr>
+            <td>${name}</td>
+            <td>${job}</td>
+            <td>${age}</td>
+            <td>${gender}</td>
+            <td>${biodata}</td>
+            <td><img src=${pict} width="100px"></td>
+            <td><input type="button" id="deleteButton" value="Delete" onclick="deleteData(${index})"></td>
+        </tr>
+    `
+    })
+    document.getElementById("mainData").innerHTML = result
+    if(personData.length == 0){
+        alert('tabel kosong')
+    }
+}
+ 
+showData()
+
+const addData = () => {
+    if(document.getElementById("inputName").value == "" || document.getElementById("inputJob").value == "" || document.getElementById("inputAge").value == "" || document.getElementById("inputPict").value == ""){
+        alert("fields tidak boleh kosong")
+    } else{
+
+    let inputName       = document.getElementById("inputName").value
+    let inputJob        = document.getElementById("inputJob").value
+    let inputAge        = document.getElementById("inputAge").value 
+    let inputPict       = document.getElementById("inputPict").value 
+    let inputBiodata    = document.getElementById("inputBiodata").value 
+    let inputGender 
+    if(document.getElementById("inputMale").checked){
+        inputGender = document.getElementById("inputMale").value 
+    } else{
+        inputGender = document.getElementById("inputFemale").value
+    }
+
+    let newData = new Person(inputName, inputJob, inputAge, inputGender, inputBiodata, inputPict)
+    document.getElementById("inputName").value = ""
+    document.getElementById("inputJob").value = "" 
+    document.getElementById("inputAge").value = "" 
+    document.getElementById("inputPict").value = ""
+    document.getElementById("inputMale").checked = false
+    document.getElementById("inputFemale").checked = false
+    document.getElementById("inputBiodata").value = ""
+    countBio()
+    personData.push(newData)
+    // document.getElementById("counter").innerHTML = "0/30"
+    showData()
+    alert('data di tambah')
+    }
+    
+}
+// var deleteIndex = document.getElementById("name").rows
+const deleteData = (index) => {
+    personData.splice(index, 1)
+    showData()
+}
+
+
+// const limitText = (limitField, limitCount, limitNum) => {
+// 	if (limitField.value.length > limitNum) {
+// 		limitField.value = limitField.value.substring(0, limitNum);
+// 	} else {
+// 		limitCount.value = limitNum - limitField.value.length;
+// 	}
+// }
+
+let cond = 0
+const sortName = () => {
+    function aSort(a,b){
+        if(a.name < b.name){
+            if (cond == 0){
+                return -1
+            } return 1
+        } if(a.name > b.name) {
+            if (cond == 0){
+                return 1
+            } return -1
+        }
+        }
+    personData.sort(aSort)
+    if(cond == 0){
+        cond = 1
+    } else {
+        cond = 0
+    }
+showData()
+}
+const sortJob = () => {
+    function aSort(a,b){
+        if(a.job < b.job){
+            if (cond == 0){
+                return -1
+            } return 1
+        } if(a.job > b.job) {
+            if (cond == 0){
+                return 1
+            } return -1
+        }
+        }
+    personData.sort(aSort)
+    if(cond == 0){
+        cond = 1
+    } else {
+        cond = 0
+    }
+showData()
+}
+
+const sortAge = () => {
+    function aSort(a,b){
+        if(a.age < b.age){
+            if (cond == 0){
+                return -1
+            } return 1
+        } if(a.age > b.age) {
+            if (cond == 0){
+                return 1
+            } return -1
+        }
+        }
+    personData.sort(aSort)
+    if(cond == 0){
+        cond = 1
+    } else {
+        cond = 0
+    }
+showData()
+}
+
+const countBio = () => {
+    document.getElementById('counter').innerHTML = inputBiodata.value.length + '/30'
+}
+
+</script>
+</html>

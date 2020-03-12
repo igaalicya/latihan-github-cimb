@@ -1,0 +1,136 @@
+<!-- PR ini dipake ujian -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        table, th, tr, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+            padding: 5px;
+
+        }
+        fieldset {
+            display: block;
+            margin-left: 2px;
+            margin-right: 2px;
+            width: 70%;
+            padding: 10px;
+        }
+        
+    </style>
+    <fieldset>
+        <legend>Filter</legend>
+        <p>Nama &nbsp &nbsp : <input id="filterName" type="text"><br></p>
+        <p>Harga &nbsp &nbsp : <input id="filterMinPrice" type="number"> - 
+            <input id="filterMaxPrice" type="number"><br></p>
+        <p>Kategori : 
+            <select id="filterCategory">
+                <option >All</option>
+                <option value="fruit">Fruit</option>
+                <option value="fastFood">Fast Food</option>
+            </select><br>
+        </p>  
+    </fieldset>
+    <fieldset>
+        <legend>Input Data</legend>
+        <table>
+            <tr>
+                <td><input id="inputNama" type="text" placeholder="Nama"></td>
+                <td><input id="inputHarga" type="number" placeholder="Harga"></td>
+                <td>
+                    <select id="inputCategory">
+                        <option >All</option>
+                        <option value="fruit">Fruit</option>
+                        <option value="fastFood">Fast Food</option>
+                    </select>
+                </td>
+                <td><input id="inputStock" type="number" placeholder="Input Stock"></td>
+            </tr>
+        </table><br>
+        <input id="submitBtn" type="button" value="Submit" onclick="addData()">
+    </fieldset>   
+    <fieldset>
+        <legend>Tabel Data</legend>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Category</th>
+                    <th>Nama</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Buy</th>
+                    <th colspan="2">Action</th>
+                </tr>
+            </thead>
+            <tbody id="mainData">
+                <tr>
+                    <td>2696492849</td>
+                    <td>Fast Food</td>
+                    <td>Pizza</td>
+                    <td>20000</td>
+                    <td>30</td>
+                    <td><input id="buyBtn" type="button" value="Buy" onclick="addToCart()"></td>
+                    <td><input id="deletetBtn" type="button" value="Delete" onclick="deleteData()"></td>
+                    <td><input id="editBtn" type="button" value="Edit" onclick="editData()"></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </fieldset> 
+    <fieldset>
+        <legend>Cart</legend>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Category</th>
+                    <th>Nama</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Buy</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="cartData">
+
+            </tbody>
+        </table><br>
+        <input id="paymentBtn" type="button" value="payment" onclick="payment()">
+    </fieldset>
+    <fieldset>
+        <legend>Payment</legend>
+        <h2>Transaction Detail</h2>
+    </fieldset>
+</body>
+<script>
+    class Product{
+        constructor(id,name,price,category,stock){
+            this.id = id
+            this.name = name
+            this.price = price
+            this.category = category
+            this.stock = stock
+        }
+    }
+
+    let date = new Date()
+
+    let productData = [
+        new Product(date.getTime(), 'Uniqlo', 12000, 'Baju', 10),
+        new Product(date.getTime(), 'Alpukat', 8000, 'Buah', 10),
+        new Product(date.getTime(), 'Samsung', 15000, 'Elektronik', 10)
+    ]
+
+    const showData = () => {
+        
+    }
+</script>
+</html>

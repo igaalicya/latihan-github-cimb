@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Stopwatch</h1>
+    <input type="button" value="Start" onclick="startTimer()" id="startButton">
+    <input type="button" value="Stop" onclick="stopTimer()">
+    <input type="button" value="Lap" onclick="lapTimer()">
+    <input type="button" value="Reset" onclick="resetTimer()">
+    <br><br>
+    <h1 id="timer"></h1>
+    <h2 id="lap"></h2>
+</body>
+<script>
+
+    let timer
+    let second = 0
+    let minute = 0
+    let hour = 0
+
+    startTimer = () => {
+        // dikasih disable karena jika start nya di pencet berkali-kali kecepatan detiknya jadi beda
+        // button start di enable lagi setelah stop
+        document.getElementById("startButton").disabled = true;
+        document.getElementById('timer').innerHTML = `${hour} : ${minute} : ${second}`
+        timer = setInterval(() => {
+        second++
+        document.getElementById('timer').innerHTML = `${hour} : ${minute} : ${second}`
+
+        if (second >= 60) {
+            second = 0
+            minute++
+        } 
+        if (minute >= 60){
+            minute = 0
+            hour++
+        }
+        }, 1000)
+    }
+
+    stopTimer = () => {
+        document.getElementById("startButton").disabled = false;
+        clearInterval(timer)
+        document.getElementById('timer').innerHTML = `${hour} : ${minute} : ${second}`
+    }
+
+    resetTimer = () => {
+        second = 0; minute = 0; hour = 0;
+        document.getElementById('timer').innerHTML = `${hour} : ${minute} : ${second}`
+    }
+
+    let lap = ''
+    lapTimer = () => {
+        document.getElementById('lap').innerHTML += `${hour} : ${minute} : ${second}` + '<br>'
+    }
+
+</script>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Drawing Tools</h1>
+    <p>1. Persegi</p>
+    <p>2. Segitiga Siku-siku Rata Kiri</p>
+    <p>3. Segitiga Siku-siku Rata Kanan</p>
+    <p>Jenis Bangunan :</p>
+    <input type="number" id="inputType">
+    <p>Ukuran :</p>
+    <input type="number" id="inputPanjang">
+    <input type="button" value="Lihat" id="submit" onclick="draw()"> 
+    <p id="hasil"></p>
+</body>
+<script>
+    const selector = (id) => {
+        return document.getElementById(id)
+    }
+
+    const draw = () => {
+        inputType = selector("inputType").value
+        inputPanjang = selector("inputPanjang").value
+        let result = ''
+        if(inputType == 1){
+            for (let i = 0; i < inputPanjang; i++){  
+                result += '<br>'
+                for (let j = 0; j < inputPanjang; j++){
+                    result += '*'
+                }
+            }
+        } else if(inputType == 2){
+            for (let i = 0; i < inputPanjang; i++){  
+                result += '*'
+                for (let j = 0; j < i; j++){
+                    result += '*'
+                }
+                result += '<br>'
+            }
+        } else if(inputType == 3){
+            for (let i = 1; i <= inputPanjang; i++){
+                for (let j = 0; j < inputPanjang - i; j++){
+                    result += '&nbsp '
+                }
+                for (let k = 0; k < i; k++){
+                    result += '*'
+                }
+                result += '<br>'
+            }
+        }
+
+        selector("hasil").innerHTML = result 
+    }
+
+</script>
+</html>

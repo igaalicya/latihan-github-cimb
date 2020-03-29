@@ -32,7 +32,7 @@ for (let i = 0; i < 5; i++){
     result +='\n'
 }
 
-// console.log(result)
+console.log(result)
 
 let i       // ctrl + d untuk hapus kata yang sama sekaligus
 let j

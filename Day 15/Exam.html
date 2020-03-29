@@ -110,6 +110,7 @@
             <h3 id="ppn"></h3>
             <h3 id="hargaTotal"></h3>
             <p id="pembayaran"></p>
+            <div id="timer"></div>
     </fieldset>
 </body>
 <script>
@@ -132,9 +133,7 @@
         new Product('1583987509063', 'Samsung', 15000, 'Elektronik', 10)
     ]
 
-    let arrCart = [
-
-    ]
+    let arrCart = []
 
     const selector = (id) => {
         return document.getElementById(id)
@@ -334,35 +333,78 @@
 
     // Payment
     const payment = () => {
-        let itemInCart = ''
+        let result = ''
+        let totalCart = ''
         let subTotal = 0
+        let pajak = 0
+        let totalPrice = 0
+        arrCart.forEach((val, index) => {
+            let {nama, harga, category, qty} = val
+            totalCart += `${category} | ${nama} | Rp${harga} x ${qty} = ${harga*qty}<br><br>`
 
-        if(arrCart.length == 0){
-            selector("transactionData").innerHTML = "Anda belum belanja"  
-            selector("subTotal").innerHTML = ""
-            selector("ppn").innerHTML = ""
-            selector("hargaTotal").innerHTML = ""
-            selector("pembayaran").innerHTML = ""
-        } else{
-            for(let i=0; i<arrCart.length; i++){
-                itemInCart += `${arrCart[i].category} | ${arrCart[i].nama} | Rp${arrCart[i].harga} x ${arrCart[i].qty} = ${arrCart[i].harga*arrCart[i].qty}<br><br>` 
-                subTotal += arrCart[i].harga*arrCart[i].qty
-            }
-            
-            let ppn = 10/100*subTotal
-            let hargaTotal = subTotal + ppn
-            
-            selector("transactionData").innerHTML = itemInCart  
-            selector("subTotal").innerHTML = "Sub Total : " + subTotal
-            selector("ppn").innerHTML = "Ppn : " + ppn
-            selector("hargaTotal").innerHTML = "Total : " + hargaTotal
-            selector("pembayaran").innerHTML = `
-            <br>
-                <input id="inputUang" type="text">
-                <input id="inputUangBtn" type="button" value="Pay" onclick="pay()">`       
-            
-                return hargaTotal     
+            subTotal += harga * qty
+            pajak = subTotal/100
+            totalPrice = subTotal + pajak
+        })
+        selector("transactionData").innerHTML = totalCart  
+        selector("transactionData").innerHTML += `
+        <h3>Sub Total : Rp ${subTotal}</h3>`
+        selector("transactionData").innerHTML += `
+        <h3>Pajak : Rp ${pajak}</h3>`
+        selector("transactionData").innerHTML += `
+        <h3>Total Price : Rp ${totalPrice}</h3>`
+        selector("transactionData").innerHTML += `
+        <input type="number" id="userPayment">
+        <input type="button" value="pay" onClick="onUserPay(${totalPrice})">`
+
+        startTimer()
+    }
+
+    const onUserPay = (totalPrice) => {
+        let userInput = selector("userPayment").value
+        if (userInput > totalPrice) {
+            alert(`Kembalian anda Rp.${userInput - totalPrice}`)
+            selector("transactionData").innerHTML = ""  
+            arrCart.length = 0
+            showCart()
+            clearInterval(timer)
+        document.getElementById('timer').innerHTML = ''
+        } else if (userInput < totalPrice) {
+            alert(`Uang anda kurang Rp.${totalPrice - userInput}, silahkan input ulang uang yang anda bayarkan`);
+        } else if (userInput == totalPrice) {
+            alert("Terima kasih sudah membayar dengan uang pas")
+            selector("transactionData").innerHTML = ""  
+            arrCart.length = 0
+            showCart()
+            clearInterval(timer)
+            document.getElementById('timer').innerHTML = ''
         }
+
+        
+    }
+
+    let timer
+
+    startTimer = () => {
+        let timeLimit = 30
+        document.getElementById('timer').innerHTML = `Waktu anda sisa ${timeLimit} detik`
+        timer = setInterval(() => {
+        timeLimit--
+        document.getElementById('timer').innerHTML = `Waktu anda sisa ${timeLimit} detik`
+
+        if (timeLimit == 0) {
+            alert('Waktu anda habis!')
+            arrCart = []
+            showCart()
+            selector('transactionData').innerHTML = ''
+            document.getElementById('timer').innerHTML = ''
+            clearInterval(timer)
+        }
+        }, 1000)
+    }
+
+    stopTimer = () => {
+        clearInterval(varInterval)
     }
 
     // Input Uang
@@ -387,7 +429,6 @@
         arrCart.length = 0
         showCart()
     }
-
 
 </script>
 </html>
